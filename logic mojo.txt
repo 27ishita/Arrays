@@ -1,0 +1,211 @@
+min no of platforms needed (greedy approach)
+public class Main
+{
+    static int minimumNumberOfPlatform(int array[], int departure[], int n) 
+    { 
+        Arrays.sort(departure);
+        int result=1;
+        int platforms =1;
+        int i=1,j=0;
+        
+        while(i<n-1 && j<n-1)
+        {
+            if(array[i]<=departure[j])
+            {
+                platforms++;
+                i++;
+            }
+            if(array[i]>departure[j])
+            {
+                platforms--;
+                j++;
+            }
+            if(platforms>result)
+            {
+                result=platforms;
+            }
+        }
+        //Practise Yourself :  Write your code Here 
+        return result; 
+    } 
+	public static void main(String[] args)
+	{
+		int[] arrival = { 100, 140, 150, 200, 215, 400 };
+		int[] departure = {110, 300, 220, 230, 315, 600};
+         int n = arrival.length; 
+
+		System.out.print("Minimum platforms required is "
+					+ minimumNumberOfPlatform(arrival, departure,n));
+	}
+}
+................................
+problem to find frequencies of each array element:
+
+
+class Solution{
+    //Function to count the frequency of all elements from 1 to N in the array.
+    public static void frequencyCount(int arr[], int N, int P)
+    {
+        for(int i=0;i<N;i++)
+        arr[i]=arr[i]-1;
+        
+        Arrays.sort(arr);
+        int index=N;
+        
+        for(int i=0;i<N;i++)
+        {
+            if(arr[i]>=N)
+            {
+                if(index==N)
+                index=i;
+            arr[i]=0;    
+                
+            }
+            
+        }
+        
+        for(int i=0;i<index;i++)
+        {
+          
+            arr[arr[i]%N]= arr[arr[i]%N]+N;
+        }
+        
+        for(int i=0;i<N;i++)
+        {
+            arr[i]=arr[i]/N;
+       }
+        
+    }
+}
+.............................................................
+Majority element in an array
+class Solution
+{
+    static int majorityElement(int a[], int size)
+    {
+        int majority = findMajority(a,size);
+        if(countMajority(a,size,majority))
+        return majority;
+        return -1;
+        // your code here
+    }
+    
+    static int findMajority(int a[],int size)
+    {
+        
+        int maj = a[0];
+        int count=1;
+        for(int i=1;i<size;i++)
+        {
+            if(a[i]==maj)
+            {
+                count++;
+            }
+            else
+            count--;
+            
+            if(count==0)
+            {
+                maj=a[i];
+                count=1;
+            }
+        }
+        
+        return maj;
+    }
+    
+    static boolean countMajority(int a[],int size,int m)
+    {
+        int count =0;
+        for(int i=0;i<size;i++)
+        {
+            if(a[i]==m)
+            count++;
+        }
+        
+        if(count>size/2)
+        {
+            return true ;
+        }
+        return false;
+    }
+}
+............................................
+Stock sell problem
+import java.util.ArrayList; 
+    
+public class Main { 
+  static class Result { 
+    int buy, sell; 
+}
+    void findProfit(int array[], int n) 
+    { 
+        ArrayList<Result> result = new ArrayList<>();
+        
+        for(int i=0;i<n;i++)
+        {
+            Result temp = new Result();
+            while(i<n-1 && array[i+1]<=array[i])
+            i++;
+            
+            if(i==n-1)
+            break;
+            
+            temp.buy = i++;
+            
+            
+            while(i<n-1 && array[i+1]>=array[i])
+            i++;
+            
+            
+            temp.sell=i;
+            result.add(temp);
+        }
+        
+        System.out.print(result.size());
+         //Practise Yourself : Write your code Here
+    } 
+  
+    public static void main(String args[]) 
+    { 
+        Main stock = new Main(); 
+  
+        int array[] = { 98, 178, 250, 300, 40, 540, 690 }; 
+        int n = array.length; 
+  
+        stock.findProfit(array, n); 
+    } 
+} 
+............................................................
+Celebrity Problem 
+class Solution
+{ 
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(int M[][], int n)
+    {
+        int a=0;
+        int b= n-1;
+        
+        while(a<b)
+        {
+            if(M[a][b]==1)
+            a++;
+            else
+            b--;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(i!=a && (M[a][i]==1 || M[i][a]==0))
+            {
+                return -1;
+            }
+        }
+        
+        return a;
+        
+    	// code here 
+    }
+}
+.............................................
+
